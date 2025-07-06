@@ -9,8 +9,8 @@ class MovementBase(SQLModel):
     
 class Movement(MovementBase, table=True):
     id: UUID | None = Field(default_factory=uuid4, primary_key=True)
-    created_at: datetime | None = Field(default_factory=datetime.now(timezone.utc()))
-    updated_at: datetime | None = Field(default_factory=datetime.now(timezone.utc()))
+    created_at: datetime | None = Field(default_factory=lambda: datetime.now(timezone.utc))
+    updated_at: datetime | None = Field(default_factory=lambda: datetime.now(timezone.utc))
     
 class MovementCreate(MovementBase):
     pass
