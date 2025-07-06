@@ -1,12 +1,22 @@
-from datetime import datetime
-from uuid import UUID
+from datetime import datetime, timezone
+from uuid import UUID, uuid4
 from sqlmodel import SQLModel, Field
 
 
-class Movement (SQLModel):
-    id: UUID = Field(primary_key=True)
+class MovementBase(SQLModel):
     amount: float = Field(description="Amount of euros. Positive if gained, negative if lost.")
-    description: str = Field(description="How or why the amount was spent or gained.")
+    description: str | None = Field(default=None, description="How or why the amount was spent or gained.")
+    
+class Movement(MovementBase, table=True):
+    id: UUID | None = Field(default_factory=uuid4, primary_key=True)
+    created_at: datetime | None = Field(default_factory=datetime.now(timezone.utc()))
+    updated_at: datetime | None = Field(default_factory=datetime.now(timezone.utc()))
+    
+class MovementCreate(MovementBase):
+    pass
+
+class MovementRead(MovementBase):
+    id: UUID
     created_at: datetime
     updated_at: datetime
     
