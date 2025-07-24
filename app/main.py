@@ -1,7 +1,11 @@
 from fastapi import FastAPI
-from .routers import movements
+from app.routers import movements
 
-app = FastAPI()
+app = FastAPI(
+    title="Budjetame",
+    openapi_url="/openapi.json",
+    swagger_ui_parameters={"docExpansion": "none"}
+)
 
 app.include_router(movements.router)
 

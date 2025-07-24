@@ -26,10 +26,9 @@ target_metadata = SQLModel.metadata
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
-from app.config import Settings
-settings = Settings()
-db_url = f"{settings.db_dialect}://{settings.db_user}:{settings.db_password}@{settings.db_host}:{settings.db_port}/{settings.db_name}"
-config.set_main_option("sqlalchemy.url", db_url)
+from app.config import get_settings
+settings = get_settings()
+config.set_main_option("sqlalchemy.url", settings.db_url)
 
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode.
