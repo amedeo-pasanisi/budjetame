@@ -8,12 +8,12 @@ class Settings(BaseSettings):
         extra="ignore"
     )
     environment: Literal["dev", "prod", "test", "staging"] = "dev"
-    db_dialect: str
-    db_user: str
-    db_host: str
-    db_port: str
-    db_name: str
-    db_password: str
+    db_dialect: str | None = None
+    db_user: str | None = None
+    db_host: str | None = None
+    db_port: str | None = None
+    db_name: str | None = None
+    db_password: str | None = None
     db_url_prod: str | None = None
     
     @property
