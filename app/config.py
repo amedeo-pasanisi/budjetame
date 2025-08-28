@@ -27,6 +27,16 @@ class Settings(BaseSettings):
                 raise ValueError("`db_url_prod` is required in production environment.")
             return self.db_url_prod
         return f"{self.db_dialect}://{self.db_user}:{self.db_password}@{self.db_host}:{self.db_port}/{self.db_name}"
+    
+    allowed_origins: str | None = None
+    
+    def allowed_origins(self) -> list[str]:
+        """
+        Returns the list of allowed CORS origins
+        """
+        if self.allowed_origins:
+            return self.allowed_origins.split(',')
+        
 
 @lru_cache
 def get_settings() -> Settings:
